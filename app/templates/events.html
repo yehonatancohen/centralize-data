@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Events - PartyDB{% endblock %}
+{% block page_title %}Events{% endblock %}
+
+{% block topbar_actions %}
+<button class="btn btn-primary btn-sm" onclick="document.getElementById('new-event-card').style.display = document.getElementById('new-event-card').style.display === 'none' ? 'block' : 'none'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    New Event
+</button>
+{% endblock %}
+
+{% block content %}
+<!-- New Event Form -->
+<div class="card section" id="new-event-card" style="display: none;">
+    <div class="card-header">
+        <h2>Create New Event</h2>
+    </div>
+    <form id="add-event-form">
+        <div class="grid-3">
+            <div class="form-group">
+                <label>Event Name</label>
+                <input type="text" id="new-event-name" required placeholder="e.g. Summer Night Party">
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="new-event-date">
+            </div>
+            <div class="form-group">
+                <label>Venue</label>
+                <input type="text" id="new-event-venue" placeholder="e.g. Club XYZ">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Create Event
+        </button>
+    </form>
+</div>
+
+<!-- Edit Event Modal -->
+<div class="card section" id="edit-event-card" style="display: none;">
+    <div class="card-header">
+        <h2>Edit Event</h2>
+    </div>
+    <form id="edit-event-form">
+        <input type="hidden" id="edit-event-id">
+        <div class="grid-3">
+            <div class="form-group">
+                <label>Event Name</label>
+                <input type="text" id="edit-event-name" required>
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="edit-event-date">
+            </div>
+            <div class="form-group">
+                <label>Venue</label>
+                <input type="text" id="edit-event-venue">
+            </div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-ghost" onclick="document.getElementById('edit-event-card').style.display='none'">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<!-- Events Table -->
+<div class="card" style="padding: 0; overflow: hidden;">
+    <div class="table-wrapper">
+        <table id="events-table">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Venue</th>
+                    <th>Attendees</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/events.js"></script>
+{% endblock %}

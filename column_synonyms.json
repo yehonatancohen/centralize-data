@@ -1,0 +1,16 @@
+{
+  "full_name": ["name", "שם", "שם מלא", "full name", "full_name", "customer_name", "שם לקוח", "שם פרטי ומשפחה", "customer", "לקוח"],
+  "first_name": ["first", "שם פרטי", "first_name", "fname", "first name"],
+  "last_name": ["last", "שם משפחה", "last_name", "lname", "surname", "last name", "family name", "שם משפ"],
+  "phone": ["phone", "טלפון", "טל", "phone_number", "mobile", "נייד", "cell", "telephone", "מספר טלפון", "tel", "phone number", "מס טלפון", "פלאפון"],
+  "email": ["email", "מייל", "אימייל", "e-mail", "דואל", "mail", "email address", "כתובת מייל"],
+  "instagram": ["instagram", "אינסטגרם", "ig", "insta", "instagram_handle", "אינסטה"],
+  "city": ["city", "עיר", "location", "מיקום", "address", "כתובת"],
+  "amount_paid": ["amount", "paid", "סכום", "תשלום", "price", "מחיר", "total", "סהכ", "amount paid", "עלות", "cost"],
+  "ticket_type": ["ticket", "כרטיס", "type", "סוג", "vip", "ticket type", "סוג כרטיס"],
+  "event_name": ["event", "אירוע", "party", "מסיבה", "event name", "שם אירוע"],
+  "date_of_birth": ["date_of_birth", "dob", "birth_date", "birthday", "תאריך לידה", "יום הולדת", "ת.לידה", "תאריך_לידה", "birthdate", "date of birth"],
+  "age": ["age", "גיל"],
+  "gender": ["gender", "מין", "מגדר", "sex"],
+  "notes": ["notes", "הערות", "comments", "comment", "הערה"]
+}

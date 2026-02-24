@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - PartyDB{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+{% endblock %}
+
+{% block content %}
+<!-- Stats -->
+<div class="stats-grid" id="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="stat-label">Total People</div>
+        <div class="stat-value" id="total-persons">-</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="stat-label">Total Events</div>
+        <div class="stat-value" id="total-events">-</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="stat-label">Files Imported</div>
+        <div class="stat-value" id="total-imports">-</div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="grid-2 section">
+    <div class="card">
+        <div class="card-header">
+            <h2>Segment Distribution</h2>
+        </div>
+        <canvas id="segments-chart" height="260"></canvas>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Quick Actions</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="/upload" class="btn btn-primary" style="justify-content: center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Upload New File
+            </a>
+            <a href="/persons" class="btn btn-secondary" style="justify-content: center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                View All People
+            </a>
+            <a href="/api/export" class="btn btn-secondary" style="justify-content: center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export All to Excel
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Top Customers -->
+<div class="section">
+    <div class="section-header">
+        <div>
+            <h2>Top Customers</h2>
+            <div class="section-subtitle">Your most valuable people based on attendance, spending, and recency</div>
+        </div>
+    </div>
+    <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="table-wrapper">
+            <table id="top-customers-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Events</th>
+                        <th>Total Spent</th>
+                        <th>Score</th>
+                        <th>Segment</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Churned Customers -->
+<div class="section">
+    <div class="section-header">
+        <div>
+            <h2>Churned Customers</h2>
+            <div class="section-subtitle">People who attended 2+ events but haven't come back in 6 months</div>
+        </div>
+    </div>
+    <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="table-wrapper">
+            <table id="churned-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Events Attended</th>
+                        <th>Last Seen (days ago)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}People - PartyDB{% endblock %}
+{% block page_title %}People{% endblock %}
+
+{% block topbar_actions %}
+<a href="/api/export" class="btn btn-secondary btn-sm" id="export-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export
+</a>
+{% endblock %}
+
+{% block content %}
+<!-- Search & Filters Toolbar -->
+<div class="toolbar">
+    <div class="search-bar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="search-input" placeholder="Search by name, phone, email, Instagram...">
+    </div>
+    <select id="segment-filter" style="width: auto; min-width: 140px;">
+        <option value="">All Segments</option>
+        <option value="vip">VIP</option>
+        <option value="regular">Regular</option>
+        <option value="new">New</option>
+        <option value="churned">Churned</option>
+        <option value="inactive">Inactive</option>
+        <option value="never">Never Attended</option>
+    </select>
+    <button class="btn btn-ghost btn-sm" id="toggle-filters-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+        Filters
+    </button>
+</div>
+
+<!-- Advanced Filters (hidden by default) -->
+<div class="card section hidden" id="advanced-filters">
+    <div class="card-header">
+        <h2>Advanced Filters</h2>
+        <button class="btn btn-ghost btn-sm" id="clear-filters-btn">Clear All</button>
+    </div>
+    <div class="grid-3" style="margin-bottom: 12px;">
+        <div class="form-group">
+            <label>City</label>
+            <input type="text" id="filter-city" placeholder="Filter by city...">
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <select id="filter-gender">
+                <option value="">All</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Min Events</label>
+            <input type="number" id="filter-min-events" min="0" placeholder="e.g. 2">
+        </div>
+    </div>
+    <div class="grid-3" style="margin-bottom: 12px;">
+        <div class="form-group">
+            <label>Min Score</label>
+            <input type="number" id="filter-min-score" min="0" max="100" placeholder="e.g. 30">
+        </div>
+        <div class="form-group">
+            <label>Max Score</label>
+            <input type="number" id="filter-max-score" min="0" max="100" placeholder="e.g. 80">
+        </div>
+        <div class="form-group">
+            <label>Contact Info</label>
+            <select id="filter-contact">
+                <option value="">Any</option>
+                <option value="has_phone">Has Phone</option>
+                <option value="no_phone">No Phone</option>
+                <option value="has_email">Has Email</option>
+                <option value="no_email">No Email</option>
+                <option value="has_instagram">Has Instagram</option>
+                <option value="no_instagram">No Instagram</option>
+            </select>
+        </div>
+    </div>
+    <button class="btn btn-primary btn-sm" id="apply-filters-btn">Apply Filters</button>
+</div>
+
+<!-- Bulk Actions Bar (hidden until selection) -->
+<div class="card section bulk-bar hidden" id="bulk-bar">
+    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <span id="selected-count" style="font-weight: 600;">0 selected</span>
+        <button class="btn btn-sm btn-ghost" id="select-all-btn">Select All Visible</button>
+        <button class="btn btn-sm btn-ghost" id="clear-selection-btn">Clear Selection</button>
+        <div style="flex: 1;"></div>
+        <select id="bulk-field" style="width: auto; min-width: 120px;">
+            <option value="">Bulk Edit Field...</option>
+            <option value="city">City</option>
+            <option value="gender">Gender</option>
+            <option value="notes">Notes</option>
+        </select>
+        <input type="text" id="bulk-value" placeholder="New value..." style="width: 160px;">
+        <button class="btn btn-sm btn-primary" id="bulk-update-btn">Apply</button>
+        <button class="btn btn-sm btn-danger" id="bulk-delete-btn">Delete Selected</button>
+    </div>
+</div>
+
+<div class="card" style="padding: 0; overflow: hidden;">
+    <div class="table-wrapper">
+        <table id="persons-table">
+            <thead>
+                <tr>
+                    <th style="width:40px; text-align:center;"><input type="checkbox" id="select-all-cb"></th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Instagram</th>
+                    <th>Events</th>
+                    <th>Score</th>
+                    <th>Segment</th>
+                    <th style="width:70px;"></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="pagination" id="pagination"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/persons.js"></script>
+{% endblock %}
