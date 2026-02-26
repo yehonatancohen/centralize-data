@@ -1,10 +1,9 @@
 import json
-import sqlite3
 import logging
 from pathlib import Path
 
 from app.config import UPLOADS_DIR, AUTO_MERGE_THRESHOLD, REVIEW_THRESHOLD
-from app.database import get_db
+from app.database import get_db, IntegrityError
 from app.services.file_parser import parse_file
 from app.services.normalizer import normalize_row
 from app.services.dedup import find_match, reset_cache, add_to_cache
@@ -168,7 +167,7 @@ def _create_person(db, data: dict, source_file: str) -> int | None:
             )
         )
         return cursor.lastrowid
-    except sqlite3.IntegrityError:
+    except IntegrityError:
         # Duplicate phone/unique constraint — find existing and merge instead
         phone = data.get("phone")
         if phone:

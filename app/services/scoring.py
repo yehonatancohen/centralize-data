@@ -1,11 +1,10 @@
 import math
-import sqlite3
 from datetime import date, datetime
 
 from app.config import RECENCY_WEIGHT, FREQUENCY_WEIGHT, MONETARY_WEIGHT, RECENCY_DECAY_DAYS, CHURN_DAYS
 
 
-def calculate_score(person_id: int, db: sqlite3.Connection) -> dict:
+def calculate_score(person_id: int, db) -> dict:
     """Calculate RFM-based customer value score."""
     attendances = db.execute("""
         SELECT e.event_date, a.amount_paid

@@ -8,3 +8,6 @@ openpyxl==3.1.*
 chardet==5.2.*
 
 rapidfuzz==3.12.*
+
+libsql>=0.1.11
+python-dotenv>=1.0.0

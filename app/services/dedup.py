@@ -1,4 +1,3 @@
-import sqlite3
 from rapidfuzz import fuzz
 
 
@@ -12,7 +11,7 @@ def reset_cache():
     _persons_cache = None
 
 
-def _get_persons_cache(db: sqlite3.Connection) -> list[dict]:
+def _get_persons_cache(db) -> list[dict]:
     """Get or build the in-memory persons cache for fuzzy matching."""
     global _persons_cache
     if _persons_cache is None:
@@ -30,7 +29,7 @@ def add_to_cache(person: dict):
         _persons_cache.append(person)
 
 
-def find_match(normalized_row: dict, db: sqlite3.Connection) -> tuple[int | None, float, str]:
+def find_match(normalized_row: dict, db) -> tuple[int | None, float, str]:
     """Find a matching person in the database for the given normalized row.
     Returns (person_id_or_None, match_score, match_field).
     """

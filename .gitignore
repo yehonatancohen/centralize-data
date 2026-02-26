@@ -7,3 +7,6 @@ uploads/
 .env
 .venv/
 venv/
+
+# Hugging Face
+.huggingface/

@@ -4,13 +4,15 @@ from fastapi.templating import Jinja2Templates
 from pathlib import Path
 
 from app.database import init_db
-from app.config import UPLOADS_DIR
+from app.config import UPLOADS_DIR, DATA_DIR
 from app.routers import upload, persons, events, dashboard, export
 
 app = FastAPI(title="Centralized Customer Database")
 
 # Static files and templates
-app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static")
+static_dir = Path(__file__).parent / "static"
+static_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 
 # Include routers
@@ -23,8 +25,9 @@ app.include_router(export.router)
 
 @app.on_event("startup")
 def startup():
-    init_db()
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
     UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
+    init_db()
 
 
 @app.get("/")
